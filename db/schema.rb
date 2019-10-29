@@ -35,9 +35,9 @@ ActiveRecord::Schema.define(version: 20191027125433) do
 
   create_table "purchases", force: :cascade do |t|
     t.float "price", default: 2.99, null: false
-    t.integer "quality", null: false
-    t.integer "status", null: false
-    t.datetime "expired_at"
+    t.integer "quality", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "expires_at"
     t.bigint "content_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false

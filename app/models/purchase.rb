@@ -7,9 +7,13 @@ class Purchase < ApplicationRecord
 
   validates_presence_of [:price, :quality, :status]
 
-  before_create :validate_purchase_uniqueness 
+  before_create :validate_purchase_uniqueness, :set_expiration_date
 
   def validate_purchase_uniqueness
-    !Purchase.alive.where(:user => user, :content => content).any?
+    throw(:abort) if Purchase.alive.where(:user => user, :content => content).any?
+  end
+
+  def set_expiration_date
+    self.expires_at = created_at + 2.days
   end
 end
